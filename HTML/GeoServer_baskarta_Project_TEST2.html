@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8">
+    <title>test2</title>
+        <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+	<style>
+		#map {
+			position: relative;
+			float: left;
+			width: 800px;
+			height: 600px;
+			border: 1px solid black;
+		}
+		#legend {
+			vertical-align: top;
+			padding-left: 10px;
+		}
+		#scale {
+			padding-bottom: 10px;
+		}
+		
+		body{
+            font-family: Arial, Helvetica, sans-serif;
+            color: darkseagreen;
+            text-align: left;        
+        }
+       
+        footer{
+            font-size: 60%;
+            color: whitesmoke;
+			background-color: ;
+            position: fixed;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            text-align: center;
+        }
+  </style>
+  </head>
+  <body>
+	<h2>Road Trip 2019</h2>
+    <div id="map" class="map"></div>
+	<div id="scale"></div>
+	<!-- Nedanstående rad visar en teckenförklaring -->
+	<div id="legend"><img src="http://localhost:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=50&HEIGHT=30&LAYER=MSG2019:ROADTRIP_MaBo"></div>
+	<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+	<script>
+		var attribution = new ol.control.Attribution({
+		collapsible: false
+		});
+		
+		var projection = new ol.proj.Projection({  // Definition av SWEREF99TM
+          code: 'EPSG:4326',
+          units: 'm',
+          axisOrientation: 'neu',
+          global: false
+		});
+		
+		var map = new ol.Map({  // Inställningar för kartan, kontroller, lager med mera
+		 controls: ol.control.defaults({attribution: false}).extend([attribution]),
+   		 layers: [
+				new ol.layer.Tile({
+					source: new ol.source.OSM({
+						url: 'https://tile.openstreetmap.be/osmbe/{z}/{x}/{y}.png',
+						attributions: [ ol.source.OSM.ATTRIBUTION, 'Tiles courtesy of <a href="https://geo6.be/">GEO-6</a>' ],
+						maxZoom: 18
+             })
+         })
+     ],
+
+		target: 'map',
+		view: new ol.View({
+			 center: ol.proj.fromLonLat([4.35247, 50.84673]),
+         maxZoom: 18,
+         zoom: 8
+		})
+	});	
+		
+		
+	    var layers = new ol.layer.Tile({
+		  source: new ol.source.TileWMS({  // Kartlager från GeoServer
+			url: 'http://localhost:8080/geoserver/MSG2019/wms',
+				params: {'LAYERS': 'MSG2019:ROADTRIP_MaBo', 'TILED': true},
+				serverType: 'geoserver'
+					})
+				})
+		];
+		
+		map.addLayer(layers);
+ 
+		var scaleLineControl = new ol.control.ScaleLine({ // Kontroll för skalstock
+			units: 'metric'
+		});
+		var bounds = [-9.60, 35.68, 12.84, 56.30];
+		map.getView().fit(bounds, map.getSize());
+    </script>
+  </body>
+  <footer>
+    <p>Created by<a href= "https://www.boverock.se/"> www.boverock.se</a> Powered by Geoserver</p>
+  </footer>
+</html>
