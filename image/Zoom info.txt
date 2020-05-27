@@ -1,0 +1,13 @@
+Zoom status 
+
+Opening Country label en.name
+		Route Sum 
+		City1(StartGoal) Max 30000000 label name 
+		
+Zoom1   City2(Stay)   Max 15000000 Label name
+		
+Zoom2   City3(Visit)  Max 10000000 Label name
+        Route 1-16    Max          Label dist_km
+		
+		
+		
