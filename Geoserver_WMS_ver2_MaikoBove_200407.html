@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GITD_WMS_Geroserver_MB</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v5.3.0/build/ol.js"></script>
+      <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            color: darkseagreen;
+            text-align: left;        
+        }
+       
+        footer{
+            font-size: 80%;
+            color: whitesmoke;
+            background-color: darkseagreen;
+            position: fixed;
+            left: 0;
+            bottom: 0px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+  </head>
+  <body>
+	<h2>Sverige Strålning</h2>
+	<h3>Genomsnittliga globalstrålningen oktober - december <h3>
+	<h4>Projekt: Lindköpng Vinterljus<h4>
+    <div id="map" style=" height: 100%, width: 100%" class="map"></div>
+    <script>
+	
+		var projection = new ol.proj.Projection({
+          code: 'EPSG:3006',
+          units: 'm',
+          axisOrientation: 'neu',
+          global: false
+		});
+      var layers = [
+        new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://localhost:8080/geoserver/MSG2019/wms',
+            params: {'FORMAT': 'image/png',
+			'LAYERS' : 'MSG2019:sverige_polygon_mabo',
+			tiled: true
+			}
+          })
+        })
+      ];
+      var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        view: new ol.View({
+			center: [536091, 6474567], 
+			projection: projection,
+          zoom: 5
+        })
+      });
+    </script>
+   </body>
+   <footer>
+    <p>Created by<a href= "https://www.boverock.se/"> www.boverock.se</a> Powered by Geoserver and PostGIS</p>
+  </footer>
+</html>
