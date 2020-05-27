@@ -1,0 +1,27 @@
+ <!-- Label for KM-->
+ 
+ <sld:TextSymbolizer>
+                        <sld:Label>
+                            <ogc:PropertyName>dist_km</ogc:PropertyName>
+                        </sld:Label>
+                        <sld:Font>
+                            <sld:CssParameter name="font-family">Arial</sld:CssParameter>
+                            <sld:CssParameter name="font-size">12.0</sld:CssParameter>
+                            <sld:CssParameter name="font-style">normal</sld:CssParameter>
+                            <sld:CssParameter name="font-weight">normal</sld:CssParameter>
+                        </sld:Font>
+                        <sld:LabelPlacement>
+                            <sld:LinePlacement>
+                                <sld:PerpendicularOffset>10.0</sld:PerpendicularOffset>
+                            </sld:LinePlacement>
+                        </sld:LabelPlacement>
+                        <sld:Halo>
+                            <sld:Radius>0</sld:Radius>
+                            <sld:Fill>
+                                <sld:CssParameter name="fill">#FFFFFF</sld:CssParameter>
+                            </sld:Fill>
+                        </sld:Halo>
+                        <sld:Fill>
+                            <sld:CssParameter name="fill">#408080</sld:CssParameter>
+                        </sld:Fill>
+                    </sld:TextSymbolizer>
